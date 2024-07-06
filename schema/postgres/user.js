@@ -1,5 +1,4 @@
 import { Sequelize, sequelize } from "../../config/posthresDB.js";
-import global from "./global.js";
 import post from "./post.js";
 const user = sequelize.define(
   "user",
@@ -33,25 +32,25 @@ const user = sequelize.define(
   }
 );
 
-user
-  .sync({ alter: true })
-  .then(() => {
-    console.log("User Table is Synced");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+// user
+//   .sync({ alter: true })
+//   .then(() => {
+//     console.log("User Table is Synced");
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
 
-user.hasMany(post, {
-  foreignKey: "userId",
-  sourceKey: "id",
-  as: "media",
-});
+// user.hasMany(post, {
+//   foreignKey: "userId",
+//   sourceKey: "id",
+//   as: "media",
+// });
 
-post.belongsTo(user, {
-  foreignKey: "userId",
-  targetKey: "id",
-  as: "user_media",
-});
+// post.belongsTo(user, {
+//   foreignKey: "userId",
+//   targetKey: "id",
+//   as: "user_media",
+// });
 
 export default user;

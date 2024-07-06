@@ -33,7 +33,7 @@ const educator = sequelize.define(
 );
 
 // educator
-//   .sync({ force: true })
+//   .sync({ alter: true })
 //   .then(() => {
 //     console.log("Educator Table is Synced");
 //   })

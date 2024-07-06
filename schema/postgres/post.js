@@ -22,13 +22,13 @@ const post = sequelize.define(
   }
 );
 
-post
-  .sync({ alter: true })
-  .then(() => {
-    console.log("Post Schema is create");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+// post
+//   .sync({ alter: true })
+//   .then(() => {
+//     console.log("Post Schema is create");
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
 
 export default post;

@@ -16,6 +16,10 @@ const global = sequelize.define(
       allowNull: false,
       unique: true,
     },
+    role: {
+      type: Sequelize.INTEGER, // 1 means student 2 means educator
+      allowNull: false,
+    },
   },
   {
     timestamps: false,
