@@ -1,12 +1,13 @@
 import { Sequelize, sequelize } from "../../config/posthresDB.js";
 import post from "./post.js";
+import { v4 as uuidv4 } from 'uuid';
 const user = sequelize.define(
-  "user",
+  "student",
   {
     id: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.UUID,
       primaryKey: true,
-      autoIncrement: true,
+      defaultValue: uuidv4(),
     },
     email: {
       type: Sequelize.STRING,
@@ -33,7 +34,7 @@ const user = sequelize.define(
 );
 
 // user
-//   .sync({ alter: true })
+//   .sync({ force: true })
 //   .then(() => {
 //     console.log("User Table is Synced");
 //   })

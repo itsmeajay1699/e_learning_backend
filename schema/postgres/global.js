@@ -2,14 +2,15 @@
 import { sequelize, Sequelize } from "../../config/posthresDB.js";
 import educator from "./educator.js";
 import user from "./user.js";
+import { v4 as uuidv4 } from "uuid";
 
 const global = sequelize.define(
   "global",
   {
     id: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.UUID,
       primaryKey: true,
-      autoIncrement: true,
+      defaultValue: uuidv4(),
     },
     email: {
       type: Sequelize.STRING,
@@ -29,7 +30,7 @@ const global = sequelize.define(
 
 // Define relationships after defining all models
 
-// global.sync({ alter: true });
+// global.sync({ force: true });
 
 global.hasOne(user, {
   foreignKey: "email",

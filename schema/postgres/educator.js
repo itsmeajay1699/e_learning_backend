@@ -1,12 +1,16 @@
 import { Sequelize, sequelize } from "../../config/posthresDB.js";
-
+import { v4 as uuidv4 } from "uuid";
 const educator = sequelize.define(
   "educator",
   {
     id: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.UUID,
       primaryKey: true,
-      autoIncrement: true,
+      defaultValue: uuidv4(),
+    },
+    profilePicture: {
+      type: Sequelize.STRING,
+      allowNull: false,
     },
     email: {
       type: Sequelize.STRING,
@@ -18,7 +22,7 @@ const educator = sequelize.define(
       allowNull: false,
     },
     role: {
-      type: Sequelize.STRING, // 1. educator 2. student
+      type: Sequelize.STRING, // 1. student 2. educator
       allowNull: false,
     },
     status: {
@@ -33,7 +37,7 @@ const educator = sequelize.define(
 );
 
 // educator
-//   .sync({ alter: true })
+//   .sync({ force: true })
 //   .then(() => {
 //     console.log("Educator Table is Synced");
 //   })

@@ -48,7 +48,7 @@ authRouter.get("/login", async (req, res) => {
 authRouter.get("/register", async (req, res) => {
   try {
     // 1 means student 2 means educator
-    const { email, password, role = 1 } = req.body;
+    const { email, password, profilePicture, role = 1 } = req.body;
     console.log(req.body);
     if (!email) {
       return res.status(400).json({
@@ -68,7 +68,12 @@ authRouter.get("/register", async (req, res) => {
 
     let hashPassword1 = await hashPassword(password);
 
-    const user = await createUser(email, hashPassword1, roleNumber);
+    const user = await createUser(
+      email,
+      hashPassword1,
+      roleNumber,
+      profilePicture
+    );
 
     const token = jwt.sign(
       {

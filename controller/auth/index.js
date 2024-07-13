@@ -38,7 +38,7 @@ export const login = async (email, password) => {
   }
 };
 
-export const createUser = async (email, password, role) => {
+export const createUser = async (email, password, role, profilePicture) => {
   try {
     const user = await Global.create({
       email: email,
@@ -53,6 +53,7 @@ export const createUser = async (email, password, role) => {
       password: password,
       role: role,
       status: 1,
+      profilePicture,
     });
 
     return newUser;
