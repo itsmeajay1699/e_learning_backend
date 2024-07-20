@@ -4,8 +4,16 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+const cookieExtractor = function (req) {
+  let token = null;
+  if (req && req.cookies) {
+    token = req.cookies["token"];
+  }
+  return token;
+};
+
 const opts = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  jwtFromRequest: cookieExtractor,
   secretOrKey: process.env.JWT_SECRET,
 };
 
@@ -15,6 +23,7 @@ passport.use(
       console.log(payload);
       return done(null, payload);
     } catch (error) {
+      console.log(error);
       return done(error);
     }
   })

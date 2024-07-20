@@ -1,6 +1,6 @@
 export const validator = (body) => {
-  const {
-    educatorId, // this will not come from the user after authentication taken from the req.user
+  let {
+    // educatorId, // this will not come from the user after authentication taken from the req.user
     title,
     description,
     thumbnail,
@@ -11,11 +11,12 @@ export const validator = (body) => {
     sessionDetails,
     status = "active", // if not provided, default value is active
     rating = 0, // if not provided, default value is 0
+    categoryId,
   } = body;
 
-  if (!educatorId) {
-    throw new Error("Educator Id is required");
-  }
+  // if (!educatorId) {
+  //   throw new Error("Educator Id is required");
+  // }
 
   if (!title) {
     throw new Error("Title is required");
@@ -53,8 +54,18 @@ export const validator = (body) => {
     throw new Error("Rating is required");
   }
 
+  if (typeof categoryId !== "string") {
+    throw new Error("Invalid data type");
+  }
+
+  totalEnrollment = parseInt(totalEnrollment);
+  totalSession = parseInt(totalSession);
+  price = parseInt(price);
+  duration = parseInt(duration);
+  rating = parseInt(rating);
+
   if (
-    typeof educatorId !== "string" ||
+    // typeof educatorId !== "string" ||
     typeof title !== "string" ||
     typeof description !== "string" ||
     typeof thumbnail !== "string" ||
@@ -69,7 +80,7 @@ export const validator = (body) => {
     throw new Error("Invalid data type");
   }
 
-  if (status !== "active" && status !== "inactive") {
+  if (status !== "1" && status !== "2") {
     throw new Error("Invalid status");
   }
 
@@ -78,7 +89,7 @@ export const validator = (body) => {
   }
 
   return {
-    educatorId,
+    // educatorId,
     title,
     description,
     thumbnail,
@@ -89,5 +100,6 @@ export const validator = (body) => {
     sessionDetails,
     status,
     rating,
+    categoryId,
   };
 };

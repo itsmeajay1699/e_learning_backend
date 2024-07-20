@@ -15,12 +15,13 @@ export const login = async (email, password) => {
 
     const { role } = user;
 
-    const table = getTableByStatus(status);
+    const table = getTableByStatus(role);
+    console.log("Email:", email, "Role:", typeof role);
 
     const checkUser = await table.findOne({
       where: {
         email: email,
-        role: role,
+        role: role.toString(),
       },
     });
 

@@ -27,6 +27,16 @@ const enrollmentSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.String,
       required: true,
     },
+
+    educatorDetails: {
+      type: mongoose.Schema.Types.Mixed,
+      required: true,
+    },
+
+    courseDetails: {
+      type: mongoose.Schema.Types.Mixed,
+      required: true,
+    },
   },
   {
     timestamps: true, // createdAt, updatedAt

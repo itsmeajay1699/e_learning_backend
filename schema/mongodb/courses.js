@@ -12,6 +12,12 @@ const courseSchema = new mongoose.Schema(
       required: true,
     },
 
+    categoryId: {
+      type: mongoose.Schema.ObjectId,
+      default: null,
+      ref: "Category",
+    },
+
     title: {
       type: mongoose.Schema.Types.String,
       required: true,
@@ -50,6 +56,12 @@ const courseSchema = new mongoose.Schema(
     sessionDetails: {
       type: mongoose.Schema.Types.Mixed,
       required: true,
+    },
+
+    totalComplete: {
+      type: mongoose.Schema.Types.Number,
+      required: true,
+      default: 0,
     },
 
     status: {

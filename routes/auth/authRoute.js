@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { createUser, login } from "../../controller/auth/index.js";
 const authRouter = Router();
 
-authRouter.get("/login", async (req, res) => {
+authRouter.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email) {
@@ -24,19 +24,21 @@ authRouter.get("/login", async (req, res) => {
     const user = await login(email, password);
 
     const token = jwt.sign(
-      { email: user.email, status: user.role, user_id: user.id },
+      { email: user.email, role: user.role, user_id: user.id },
       process.env.JWT_SECRET,
       {
         expiresIn: "1h",
       }
     );
 
-    return res.status(200).json({
+    return res.cookie("token", token).status(200).json({
       success: true,
       message: "Login successful",
       token,
+      user,
     });
   } catch (err) {
+    console.log(err);
     res.status(500).json({
       success: false,
       message: "Error",
@@ -45,10 +47,10 @@ authRouter.get("/login", async (req, res) => {
   }
 });
 
-authRouter.get("/register", async (req, res) => {
+authRouter.post("/register", async (req, res) => {
   try {
     // 1 means student 2 means educator
-    const { email, password, profilePicture, role = 1 } = req.body;
+    let { email, password, profilePicture, isStudent, role = 1 } = req.body;
     console.log(req.body);
     if (!email) {
       return res.status(400).json({
@@ -62,6 +64,10 @@ authRouter.get("/register", async (req, res) => {
         success: false,
         message: "Password is required",
       });
+    }
+
+    if (isStudent === false) {
+      role = 2;
     }
 
     let roleNumber = stringToNumber(role);
@@ -91,7 +97,7 @@ authRouter.get("/register", async (req, res) => {
 
     return res.cookie("token", token).status(200).json({
       success: true,
-      message: "Register successful",
+      message: "User created successfully",
       token,
       user,
     });
@@ -103,6 +109,13 @@ authRouter.get("/register", async (req, res) => {
       error: err,
     });
   }
+});
+
+authRouter.post("/logout", async (req, res) => {
+  return res.clearCookie("token").status(200).json({
+    success: true,
+    message: "Logout successfully",
+  });
 });
 
 export default authRouter;

@@ -11,6 +11,8 @@ const educator = sequelize.define(
     profilePicture: {
       type: Sequelize.STRING,
       allowNull: false,
+      defaultValue:
+        "https://img.freepik.com/free-vector/illustration-businessman_53876-5856.jpg?size=626&ext=jpg&ga=GA1.1.2008272138.1721001600&semt=ais_user",
     },
     email: {
       type: Sequelize.STRING,
