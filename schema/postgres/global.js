@@ -1,5 +1,5 @@
 // Example assuming proper imports and Sequelize initialization
-import { sequelize, Sequelize } from "../../config/posthresDB.js";
+import { sequelize, Sequelize } from "../../config/postgresDB.js";
 import educator from "./educator.js";
 import user from "./user.js";
 import { v4 as uuidv4 } from "uuid";
@@ -10,7 +10,7 @@ const global = sequelize.define(
     id: {
       type: Sequelize.UUID,
       primaryKey: true,
-      defaultValue: uuidv4(),
+      defaultValue: Sequelize.UUIDV4,
     },
     email: {
       type: Sequelize.STRING,
@@ -30,26 +30,37 @@ const global = sequelize.define(
 
 // Define relationships after defining all models
 
-// global.sync({ force: true });
-
 global.hasOne(user, {
   foreignKey: "email",
   sourceKey: "email",
+  as: "user",
 });
 
 user.belongsTo(global, {
   foreignKey: "email",
   targetKey: "email",
+  as: "global",
 });
 
 global.hasOne(educator, {
-  foreignKey: "email",
   sourceKey: "email",
+  as: "educator",
 });
 
 educator.belongsTo(global, {
   foreignKey: "email",
   targetKey: "email",
+  as: "global",
 });
 
+// global.sync({ alter: true });
 export default global;
+
+// sequelize
+//   .sync({ force: true })
+//   .then(() => {
+//     console.log("Database schema updated");
+//   })
+//   .catch((err) => {
+//     console.error("Error syncing database:", err);
+//   });

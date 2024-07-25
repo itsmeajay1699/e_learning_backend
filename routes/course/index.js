@@ -14,6 +14,7 @@ const courseRouter = express.Router();
 import { validator } from "../../validators/course.js";
 import passport from "passport";
 import enrollment from "../../schema/mongodb/enrollment.js";
+import { emitSocketEvent } from "../../socket/index.js";
 
 courseRouter.get(
   "/all",
@@ -132,7 +133,7 @@ courseRouter.post(
       const { courseId } = req.params;
       const { user_id: userId } = req.user;
       const { educatorId } = req.body;
-      const course = await enrollCourse(courseId, userId, educatorId);
+      const course = await enrollCourse(courseId, userId, educatorId, req);
       res.json({
         success: true,
         message: "Course Enrolled Successfully",
@@ -162,6 +163,7 @@ courseRouter.get(
       }
 
       const courses = await myEnrolledCourses(userId, limit, page);
+
       res.json({
         success: true,
         message: "Success",

@@ -4,6 +4,9 @@ import enrollment from "../../schema/mongodb/enrollment.js";
 import educator from "../../schema/postgres/educator.js";
 
 import user from "../../schema/postgres/user.js";
+import { emitSocketEvent } from "../../socket/index.js";
+import chatRoom from "../../schema/postgres/chatRoom.js";
+import ChatEventEnum from "../../socket/constant.js";
 export const getAllCourses = async (limit, page, categoryId) => {
   try {
     const courses = await Courses.find({
@@ -129,15 +132,15 @@ export async function getCoursesByEducator(educatorId) {
   }
 }
 
-export const enrollCourse = async (courseId, useId, educatorId) => {
+export const enrollCourse = async (courseId, userId, educatorId, req) => {
   try {
-    if (!courseId || !useId || !educatorId) {
+    if (!courseId || !userId || !educatorId) {
       throw new Error("Invalid data");
     }
 
     const studentDetails = await user.findOne({
       where: {
-        id: useId,
+        id: userId,
         role: "1",
       },
 
@@ -146,7 +149,7 @@ export const enrollCourse = async (courseId, useId, educatorId) => {
 
     const findExist = await enrollment.findOne({
       courseId,
-      studentId: useId,
+      studentId: userId,
       eductorId: educatorId,
     });
 
@@ -176,12 +179,39 @@ export const enrollCourse = async (courseId, useId, educatorId) => {
       studentDetails: studentDetails.dataValues,
       eductorId: educatorId,
       status: "1",
-      studentId: useId,
+      studentId: userId,
       courseDetails: courseFind,
       educatorDetails: educatorDetails.dataValues,
     });
+
+    // create the chatRoom between the user and educator here with the courseId
+
+    const chatRoomCreate = await chatRoom.create({
+      courseId,
+      participant1: userId,
+      participant2: educatorId,
+      courseDetails: {
+        title: courseFind.title,
+        thumbnail: courseFind.thumbnail,
+      },
+    });
+
+    // emitSocketEvent(
+    //   req,
+    //   userId,
+    //   ChatEventEnum.NEW_CHAT_ROOM_EVENT,
+    //   chatRoomCreate.dataValues
+    // );
+    // emitSocketEvent(
+    //   req,
+    //   educatorId,
+    //   ChatEventEnum.NEW_CHAT_ROOM_EVENT,
+    //   chatRoomCreate.dataValues
+    // );
+
     return enrollCoursed;
   } catch (err) {
+    console.log(err);
     throw new Error(err);
   }
 };

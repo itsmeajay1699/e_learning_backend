@@ -1,4 +1,4 @@
-import { Sequelize, sequelize } from "../../config/posthresDB.js";
+import { Sequelize, sequelize } from "../../config/postgresDB.js";
 import { v4 as uuidv4 } from "uuid";
 const educator = sequelize.define(
   "educator",
@@ -6,7 +6,7 @@ const educator = sequelize.define(
     id: {
       type: Sequelize.UUID,
       primaryKey: true,
-      defaultValue: uuidv4(),
+      defaultValue: Sequelize.UUIDV4, // Use Sequelize's UUIDV4 to auto-generate unique IDs
     },
     profilePicture: {
       type: Sequelize.STRING,
@@ -39,7 +39,7 @@ const educator = sequelize.define(
 );
 
 // educator
-//   .sync({ force: true })
+//   .sync({ alter: true })
 //   .then(() => {
 //     console.log("Educator Table is Synced");
 //   })

@@ -1,13 +1,12 @@
-import { Sequelize, sequelize } from "../../config/posthresDB.js";
-import post from "./post.js";
+import { Sequelize, sequelize } from "../../config/postgresDB.js";
 import { v4 as uuidv4 } from "uuid";
-const user = sequelize.define(
+const student = sequelize.define(
   "student",
   {
     id: {
       type: Sequelize.UUID,
       primaryKey: true,
-      defaultValue: uuidv4(),
+      defaultValue: Sequelize.UUIDV4,
     },
     email: {
       type: Sequelize.STRING,
@@ -47,18 +46,6 @@ const user = sequelize.define(
 //   })
 //   .catch((err) => {
 //     console.log(err);
-//   });
+//   });x
 
-// user.hasMany(post, {
-//   foreignKey: "userId",
-//   sourceKey: "id",
-//   as: "media",
-// });
-
-// post.belongsTo(user, {
-//   foreignKey: "userId",
-//   targetKey: "id",
-//   as: "user_media",
-// });
-
-export default user;
+export default student;

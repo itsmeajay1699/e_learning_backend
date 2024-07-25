@@ -21,26 +21,27 @@ const initializeSocket = (io) => {
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      const { role } = decoded;
-      let userFind = null;
-      if (role === "1") {
-        // student;
-        userFind = await user.findOne({
-          where: {
-            id: decoded.user_id,
-          },
-        });
-      } else {
-        userFind = await Educator.findOne({
-          where: {
-            id: decoded.user_id,
-          },
-        });
-      }
+      // const { role } = decoded;
+      // let userFind = null;
+      // if (role === "1") {
+      //   // student;
+      //   userFind = await user.findOne({
+      //     where: {
+      //       id: decoded.user_id,
+      //     },
+      //   });
+      // } else {
+      //   userFind = await Educator.findOne({
+      //     where: {
+      //       id: decoded.user_id,
+      //     },
+      //   });
+      // }
 
-      socket.user = userFind.dataValues; // mount user to socket
-
-      socket.join(socket.user.id); // join room with user id
+      // socket.user = userFind.dataValues; // mount user to socket
+      socket.user = decoded;
+      socket.join(socket.user.user_id); // join user room
+      console.log("Connected to the socket.", socket.user.user_id);
       socket.emit(ChatEventEnum.CONNECTED_EVENT, {
         message: "Connected to the socket.",
       });
@@ -60,7 +61,7 @@ const initializeSocket = (io) => {
   });
 };
 
-const emitSocketEvent = (req, roomId, event, payload) => {
+const emitSocketEvent = ({ req, roomId, event, payload }) => {
   req.app.get("io").to(roomId).emit(event, payload);
 };
 
