@@ -15,5 +15,6 @@ router.use("/educator", educatorRouter);
 router.use("/course", courseRouter);
 router.use("/category", categoryRouter);
 router.use("/chat", chatRouter);
+// router.use("/message", messageRouter);
 router.use("/message", messageRouter);
 export default router;

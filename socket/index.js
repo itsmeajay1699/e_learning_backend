@@ -4,6 +4,18 @@ import user from "../schema/postgres/user.js";
 import Educator from "../schema/postgres/educator.js";
 import ChatEventEnum from "./constant.js";
 
+const isTypingEventDoing = (socket) => {
+  socket.on(ChatEventEnum.IS_TYPING_START_EVENT, (data) => {
+    console.log("User is typing...", data);
+    const { roomId, userId } = data;
+    socket.to(userId).emit(ChatEventEnum.IS_TYPING_START_EVENT, {
+      message: "User is typing...",
+      typing: data.typing,
+      roomId,
+    });
+  });
+};
+
 const initializeSocket = (io) => {
   return io.on("connection", async (socket) => {
     try {
@@ -51,6 +63,8 @@ const initializeSocket = (io) => {
           socket.leave(socket.user.id);
         }
       });
+
+      isTypingEventDoing(socket);
     } catch (error) {
       console.log(error);
       socket.emit(
