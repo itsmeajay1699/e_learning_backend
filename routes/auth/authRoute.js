@@ -27,7 +27,7 @@ authRouter.post("/login", async (req, res) => {
       { email: user.email, role: user.role, user_id: user.id },
       process.env.JWT_SECRET,
       {
-        expiresIn: "1h",
+        expiresIn: "30d",
       }
     );
 
@@ -89,7 +89,7 @@ authRouter.post("/register", async (req, res) => {
       },
       process.env.JWT_SECRET,
       {
-        expiresIn: "1h",
+        expiresIn: "30d",
       }
     );
 
