@@ -40,7 +40,7 @@ messageRouter.post(
         chatRoomId: id,
         messageSend: message,
         senderId: user_id,
-        role: role === 1 ? "student" : "educator",
+        role: role === "1" ? "student" : "educator",
         req: req,
       });
 
