@@ -28,14 +28,14 @@ const httpServer = createServer(app);
 const io = new Server(httpServer, {
   pingTimeout: 60000,
   cors: {
-    origin: "https://e-learning-indol.vercel.app/",
+    origin: "https://e-learning-indol.vercel.app",
     methods: ["GET", "POST"],
     credentials: true,
   },
 });
 
 const corsOptions = {
-  origin: "https://e-learning-indol.vercel.app/",
+  origin: "https://e-learning-indol.vercel.app",
   optionsSuccessStatus: 200,
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
