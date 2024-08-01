@@ -32,6 +32,10 @@ authRouter.post("/login", async (req, res) => {
       }
     );
 
+    const expiry = req.body?.remember
+      ? { maxAge: 1000 * 60 * 60 * 24 * 30 }
+      : {};
+
     return res
       .cookie("token", token, {
         path: "/",
@@ -103,6 +107,10 @@ authRouter.post("/register", async (req, res) => {
 
     // const tokenfromHeader = req.headers.authorization.split(" ")[1];
     // console.log(tokenfromHeader);
+
+    const expiry = req.body?.remember
+      ? { maxAge: 1000 * 60 * 60 * 24 * 30 } // 30 days
+      : {};
 
     return res
       .cookie("token", token, {
