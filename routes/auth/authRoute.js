@@ -34,9 +34,9 @@ authRouter.post("/login", async (req, res) => {
 
     return res
       .cookie("token", token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "Strict",
+        path: "/",
+        ...expiry,
+        domain: "https://e-learning-kl5q.vercel.app",
       })
       .status(200)
       .json({
@@ -106,9 +106,9 @@ authRouter.post("/register", async (req, res) => {
 
     return res
       .cookie("token", token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "Strict",
+        path: "/",
+        ...expiry,
+        domain: "https://e-learning-kl5q.vercel.app",
       })
       .status(201)
       .json({
