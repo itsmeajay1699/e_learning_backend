@@ -37,15 +37,14 @@ authRouter.post("/login", async (req, res) => {
       : {};
 
     return res
-      .cookie("token", token, {
-        path: "/",
-        maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days in milliseconds
-        domain: "e-learning-indol.vercel.app",
-        httpOnly: true,
-        secure: true,
-        sameSite: "none",
-      })
       .status(201)
+      .cookie("token", token, {
+        httpOnly: true,
+        sameSite: "lax",
+        secure: false,
+        signed: true,
+        ...expiry,
+      })
       .json({
         success: true,
         message: "User created successfully",
@@ -116,15 +115,14 @@ authRouter.post("/register", async (req, res) => {
       : {};
 
     return res
-      .cookie("token", token, {
-        path: "/",
-        maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days in milliseconds
-        domain: "e-learning-indol.vercel.app",
-        httpOnly: true,
-        secure: true,
-        sameSite: "none",
-      })
       .status(201)
+      .cookie("token", token, {
+        httpOnly: true,
+        sameSite: "lax",
+        secure: false,
+        signed: true,
+        ...expiry,
+      })
       .json({
         success: true,
         message: "User created successfully",
