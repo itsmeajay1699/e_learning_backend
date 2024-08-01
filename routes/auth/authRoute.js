@@ -2,6 +2,7 @@ import { Router } from "express";
 import { hashPassword, stringToNumber } from "../../utils/index.js";
 import jwt from "jsonwebtoken";
 import { createUser, login } from "../../controller/auth/index.js";
+import passport from "passport";
 const authRouter = Router();
 
 authRouter.post("/login", async (req, res) => {
@@ -117,5 +118,22 @@ authRouter.post("/logout", async (req, res) => {
     message: "Logout successfully",
   });
 });
+
+authRouter.get(
+  "/session",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    try {
+      res.status(200).json({
+        error: false,
+        message: "Session is active",
+        user: req.user,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ error: true, message: err.message });
+    }
+  }
+);
 
 export default authRouter;

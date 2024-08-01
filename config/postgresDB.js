@@ -1,19 +1,14 @@
 import Sequelize from "sequelize";
+import { config } from "dotenv";
 
-// const PASSWORD = process.env.DATABASE_PASSWORD;
-// const HOST = process.env.DATABASE_HOST;
-// const USER = process.env.DATABASE_USER;
-// const DATABASE = process.env.DATABASE_NAME;
+config();
 
-// DATABASE_USER="postgres"
-// DATABASE_HOST="localhost"
-// DATABASE_PASSWORD="asklqwopn@1"
-// DATABASE_NAME="e_learning"
+const PASSWORD = process.env.DATABASE_PASSWORD;
+const HOST = process.env.DATABASE_HOST;
+const USER = process.env.DATABASE_USER;
+const DATABASE = process.env.DATABASE_NAME;
 
-const PASSWORD = "asklqwopn@1";
-const HOST = "localhost";
-const USER = "postgres";
-const DATABASE = "e_learning";
+console.log(PASSWORD, HOST, USER, DATABASE);
 
 const dialect = "postgres";
 const pool = {

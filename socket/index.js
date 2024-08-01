@@ -20,11 +20,14 @@ const initializeSocket = (io) => {
   return io.on("connection", async (socket) => {
     try {
       const cookies = cookie.parse(socket.handshake.headers.cookie || "");
+      // console.log("cookies", cookies);
 
       let token = cookies["token"];
+      // console.log("token1", token);
 
       if (!token) {
         token = socket.handshake.auth?.token;
+        // console.log("token2", token);
       }
 
       if (!token) {
