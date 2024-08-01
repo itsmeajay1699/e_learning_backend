@@ -40,9 +40,8 @@ authRouter.post("/login", async (req, res) => {
       .status(201)
       .cookie("token", token, {
         httpOnly: true,
-        // sameSite: "lax",
-        // secure: false,
-        // signed: true,
+        secure: true,
+        sameSite: "None",
         ...expiry,
       })
       .json({
@@ -118,9 +117,8 @@ authRouter.post("/register", async (req, res) => {
       .status(201)
       .cookie("token", token, {
         httpOnly: true,
-        // sameSite: "lax",
-        // secure: false,
-        // signed: true,
+        secure: true,
+        sameSite: "None",
         ...expiry,
       })
       .json({
