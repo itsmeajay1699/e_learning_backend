@@ -51,7 +51,7 @@ const limiter = rateLimit({
 
 app.set("io", io);
 app.use(cors(corsOptions)); // Apply CORS options before other middleware
-app.use(cookieParser());
+app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(express.json()); // for parsing application/json
 // app.use(limiter);
