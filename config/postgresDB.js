@@ -8,7 +8,11 @@ const HOST = process.env.DATABASE_HOST;
 const USER = process.env.DATABASE_USER;
 const DATABASE = process.env.DATABASE_NAME;
 
-console.log(PASSWORD, HOST, USER, DATABASE);
+const PASSWORD_PROD = process.env.DATABASE_PASSWORD_PROD;
+const HOST_PROD = process.env.DATABASE_HOST_PROD;
+const USER_PROD = process.env.DATABASE_USER_PROD;
+const DATABASE_PROD = process.env.DATABASE_NAME_PROD;
+const URL_PROD = process.env.DATABASE_URL_PROD;
 
 const dialect = "postgres";
 const pool = {
@@ -18,7 +22,7 @@ const pool = {
   idle: 30000,
 };
 
-const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
+const sequelize = new Sequelize(URL_PROD, {
   host: HOST,
   dialect,
   pool,
@@ -27,6 +31,12 @@ const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
   define: {
     paranoid: true,
     timestamp: true,
+  },
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
   },
 });
 
