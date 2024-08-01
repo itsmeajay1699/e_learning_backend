@@ -57,7 +57,6 @@ app.use(express.json()); // for parsing application/json
 // app.use(limiter);
 app.use(passport.initialize());
 app.use("/api", router);
-app.set("trust proxy", 1);
 
 httpServer.listen(5000, () => {
   console.log("Server is running on port 5000");
