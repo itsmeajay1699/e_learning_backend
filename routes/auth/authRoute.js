@@ -32,12 +32,19 @@ authRouter.post("/login", async (req, res) => {
       }
     );
 
-    return res.cookie("token", token).status(200).json({
-      success: true,
-      message: "Login successful",
-      token,
-      user,
-    });
+    return res
+      .cookie("token", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "Strict",
+      })
+      .status(200)
+      .json({
+        success: true,
+        message: "Login successful",
+        token,
+        user,
+      });
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -95,13 +102,21 @@ authRouter.post("/register", async (req, res) => {
     );
 
     // const tokenfromHeader = req.headers.authorization.split(" ")[1];
+    // console.log(tokenfromHeader);
 
-    return res.cookie("token", token).status(200).json({
-      success: true,
-      message: "User created successfully",
-      token,
-      user,
-    });
+    return res
+      .cookie("token", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "Strict",
+      })
+      .status(201)
+      .json({
+        success: true,
+        message: "User created successfully",
+        token,
+        user,
+      });
   } catch (err) {
     console.log(err);
     return res.status(500).json({
