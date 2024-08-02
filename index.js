@@ -19,6 +19,7 @@ import { createServer } from "http";
 import cors from "cors";
 import router from "./routes/index.js";
 import { Server } from "socket.io";
+import { sequelize } from "./config/postgresDB.js";
 
 dotenv.config();
 connectDB();
@@ -67,3 +68,8 @@ app.get("/", (req, res) => {
 });
 
 initializeSocket(io);
+
+// sequelize.sync({ alter: true }).then(() => {
+//   console.log("Database schema updated");
+// });
+ 

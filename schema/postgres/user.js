@@ -39,13 +39,13 @@ const student = sequelize.define(
   }
 );
 
-// user
+// student
 //   .sync({ force: true })
 //   .then(() => {
 //     console.log("User Table is Synced");
 //   })
 //   .catch((err) => {
 //     console.log(err);
-//   });x
+//   }); 
 
 export default student;

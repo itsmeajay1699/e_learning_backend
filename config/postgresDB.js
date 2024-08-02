@@ -8,10 +8,6 @@ const HOST = process.env.DATABASE_HOST;
 const USER = process.env.DATABASE_USER;
 const DATABASE = process.env.DATABASE_NAME;
 
-const PASSWORD_PROD = process.env.DATABASE_PASSWORD_PROD;
-const HOST_PROD = process.env.DATABASE_HOST_PROD;
-const USER_PROD = process.env.DATABASE_USER_PROD;
-const DATABASE_PROD = process.env.DATABASE_NAME_PROD;
 const URL_PROD = process.env.DATABASE_URL_PROD;
 
 const dialect = "postgres";
@@ -21,6 +17,20 @@ const pool = {
   acquire: 60000,
   idle: 30000,
 };
+
+// connect to the local
+
+// const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
+//   host: HOST,
+//   dialect,
+//   pool,
+//   logging: false,
+//   benchmark: true,
+//   define: {
+//     paranoid: true,
+//     timestamp: true,
+//   },
+// });
 
 const sequelize = new Sequelize(URL_PROD, {
   host: HOST,
@@ -38,13 +48,14 @@ const sequelize = new Sequelize(URL_PROD, {
       rejectUnauthorized: false,
     },
   },
+  logging: false, // set to console.log to see the raw SQL queries
 });
 
-console.log(
-  sequelize
-    .authenticate()
-    .then(() => console.log("Postgres Database connected"))
-    .catch((err) => console.log(err))
-);
+// console.log(
+//   sequelize
+//     .authenticate()
+//     .then(() => console.log("Postgres Database connected"))
+//     .catch((err) => console.log(err))
+// );
 
 export { Sequelize, sequelize };

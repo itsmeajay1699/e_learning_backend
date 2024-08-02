@@ -34,30 +34,37 @@ global.hasOne(user, {
   foreignKey: "email",
   sourceKey: "email",
   as: "user",
+  constraints: false,
 });
 
 user.belongsTo(global, {
   foreignKey: "email",
   targetKey: "email",
   as: "global",
+  constraints: false,
 });
 
 global.hasOne(educator, {
+  foreignKey: "email",
   sourceKey: "email",
   as: "educator",
+  constraints: false,
 });
 
 educator.belongsTo(global, {
   foreignKey: "email",
   targetKey: "email",
   as: "global",
+  constraints: false,
 });
 
-// global.sync({ alter: true });
+// global.sync({ force: true }).then(() => {
+//   console.log("Global Table is Synced");
+// });
 export default global;
 
 // sequelize
-//   .sync({ force: true })
+//   .sync({ alter: true })
 //   .then(() => {
 //     console.log("Database schema updated");
 //   })
