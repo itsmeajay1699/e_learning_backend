@@ -40,29 +40,29 @@ const chatRoom = sequelize.define(
 
 // Define relationships after defining all models
 
-// chatRoom.belongsTo(student, {
-//   foreignKey: "participant1",
-//   targetKey: "id",
-//   as: "participant1_student",
-// });
+chatRoom.belongsTo(student, {
+  foreignKey: "participant1",
+  targetKey: "id",
+  as: "participant1_student",
+});
 
-// student.hasMany(chatRoom, {
-//   foreignKey: "participant1",
-//   sourceKey: "id",
-//   as: "participant1_chatRoom",
-// });
+student.hasMany(chatRoom, {
+  foreignKey: "participant1",
+  sourceKey: "id",
+  as: "participant1_chatRoom",
+});
 
-// educator.hasMany(chatRoom, {
-//   foreignKey: "participant2",
-//   sourceKey: "id",
-//   as: "participant2_chatRoom",
-// });
+educator.hasMany(chatRoom, {
+  foreignKey: "participant2",
+  sourceKey: "id",
+  as: "participant2_chatRoom",
+});
 
-// chatRoom.belongsTo(educator, {
-//   foreignKey: "participant2",
-//   targetKey: "id",
-//   as: "participant2_educator",
-// });
+chatRoom.belongsTo(educator, {
+  foreignKey: "participant2",
+  targetKey: "id",
+  as: "participant2_educator",
+});
 
 // chatRoom
 //   .sync({ force: true })

@@ -51,11 +51,11 @@ const sequelize = new Sequelize(URL_PROD, {
   logging: false, // set to console.log to see the raw SQL queries
 });
 
-// console.log(
-//   sequelize
-//     .authenticate()
-//     .then(() => console.log("Postgres Database connected"))
-//     .catch((err) => console.log(err))
-// );
+console.log(
+  sequelize
+    .authenticate()
+    .then(() => console.log("Postgres Database connected"))
+    .catch((err) => console.log(err))
+);
 
 export { Sequelize, sequelize };
