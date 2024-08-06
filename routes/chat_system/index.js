@@ -1,8 +1,4 @@
 import { Router } from "express";
-import chatRoom from "../../schema/postgres/chatRoom.js";
-import user from "../../schema/postgres/user.js";
-import educator from "../../schema/postgres/educator.js";
-import global from "../../schema/postgres/global.js";
 import { allChatRoomOfUser } from "../../controller/chat_system/chatRoom.js";
 import passport from "passport";
 const chatRouter = Router();

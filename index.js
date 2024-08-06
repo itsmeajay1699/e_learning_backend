@@ -15,6 +15,7 @@ import "./schema/postgres/message.js";
 import "./schema/mongodb/enrollment.js";
 import "./schema/mongodb/courses.js";
 import "./schema/mongodb/category.js";
+import "./utils/cron-job/cron.js";
 import { createServer } from "http";
 import cors from "cors";
 import router from "./routes/index.js";
@@ -72,4 +73,3 @@ initializeSocket(io);
 // sequelize.sync({ alter: true }).then(() => {
 //   console.log("Database schema updated");
 // });
- 
