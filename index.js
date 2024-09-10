@@ -21,6 +21,7 @@ import cors from "cors";
 import router from "./routes/index.js";
 import { Server } from "socket.io";
 import { sequelize } from "./config/postgresDB.js";
+import "./utils/cron-job/cron.js";
 
 dotenv.config();
 connectDB();
@@ -34,6 +35,10 @@ const io = new Server(httpServer, {
     methods: ["GET", "POST"],
     credentials: true,
   },
+});
+
+sequelize.sync({ alter: true }).then(() => {
+  console.log("Database & tables created!");
 });
 
 const corsOptions = {
